@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import './ContactEditor.css'
 
 export default class ContactEditor extends Component {
+    static = {
+        onAddContact: PropTypes.func.isRequired,
+    }
+
     state = {
-        text: '',
+        name: '',
         number: ''
     }
 
@@ -10,6 +16,10 @@ export default class ContactEditor extends Component {
         e.preventDefault();
 
         this.props.onAddContact(this.state)
+        this.setState({
+            name: '',
+            number: ''
+        })
     }
 
     handleChange = (e) => {
@@ -21,26 +31,29 @@ export default class ContactEditor extends Component {
     }
 
     render() {
+        const { name, number } = this.state
         return (
-            <form onSubmit={this.handleSubmit} >
-                <label><p>Name</p>
-                    <input
-                        type="text"
-                        value={this.state.text}
-                        onChange={this.handleChange}
-                        name="text"
-                    />
-                </label>
-                <label><p>Number</p>
-                    <input
-                        type="number"
-                        value={this.state.number}
-                        onChange={this.handleChange}
-                        name="number"
-                    />
-                </label>
-                <button type="submit">Add contact</button>
-            </form>
+            <div className="contactForm" >
+                <form onSubmit={this.handleSubmit} >
+                    <label><p>Name</p>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={this.handleChange}
+                            name="name"
+                        />
+                    </label>
+                    <label><p>Number</p>
+                        <input
+                            type="number"
+                            value={number}
+                            onChange={this.handleChange}
+                            name="number"
+                        />
+                    </label>
+                    <button className="buttonForm" type="submit">Add contact</button>
+                </form>
+            </div>
         )
     }
 
