@@ -14,6 +14,12 @@ export default class App extends Component {
         filter: ''
     }
 
+    checkContact = (name) => {
+        return this.state.contacts.some((contact) => {
+            return contact.name === name;
+        });
+    };
+
     addContact = ({ name, number }) => {
         const contact = {
             id: uuidv4(),
@@ -22,11 +28,9 @@ export default class App extends Component {
         };
 
         this.setState(prevState => {
-            prevState.contacts.map(obj => {
-                if (obj.name === name) {
-                    return alert(`${name} is alredy in contacts.`)
-                }
-            })
+            if (this.checkContact(name)) {
+                return alert(`${name} is already in contacts.`);
+            }
             return {
                 contacts: [...prevState.contacts, contact]
             }
