@@ -30,10 +30,12 @@ export default class App extends Component {
         this.setState(prevState => {
             if (this.checkContact(name)) {
                 return alert(`${name} is already in contacts.`);
+            } else {
+                return {
+                    contacts: [...prevState.contacts, contact]
+                }
             }
-            return {
-                contacts: [...prevState.contacts, contact]
-            }
+
         })
     }
 
